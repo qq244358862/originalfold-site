@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f5ef">
-  <meta name="description" content="原始折叠，来自成都的独立AI创作者。从一个动机开始，折出时代的生活方式。展开纸扇，认识我们的作品《想过》和《段落计时器》。">
+  <meta name="description" content="原始折叠，来自成都的独立AI创作者。从一个动机开始，折出时代的生活方式。展开作品纸，认识我们的作品《想过》和《段落计时器》。">
   <meta property="og:title" content="原始折叠 · Original Fold">
   <meta property="og:description" content="从一个动机开始，折出时代的生活方式。">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/svg+xml" href="./mark.svg">
   <title>原始折叠 · Original Fold</title>
-  <link rel="stylesheet" href="./style.css?v=fan2">
-  <script defer src="./fold.js?v=fan2"></script>
-  <script defer src="./fan.js?v=fan2"></script>
+  <link rel="stylesheet" href="./style.css?v=sheet3">
+  <script defer src="./fold.js?v=sheet3"></script>
+  <script defer src="./portfolio.js?v=sheet3"></script>
   <script defer src="./studio.js"></script>
 </head>
 <body>
@@ -26,7 +26,7 @@
   <div class="wrap">
     <header class="mast">
       <a class="brand" href="#top" aria-label="原始折叠，回到首页"><svg class="brandmark" aria-hidden="true"><use href="#foldmark"/></svg><span>原始折叠<small lang="en">ORIGINAL FOLD</small></span></a>
-      <nav aria-label="主导航"><a href="#works">作品</a><a href="#studio">工作室</a><a class="nav-contact" href="#contact">联系<span class="contact-long">我们</span></a></nav>
+      <nav aria-label="主导航"><a href="#works" aria-controls="works">作品</a><a href="./studio.html">工作室</a><a class="nav-contact" href="#contact">联系<span class="contact-long">我们</span></a></nav>
     </header>
     <main id="main">
       <section id="top" class="hero" aria-labelledby="title">
@@ -35,7 +35,7 @@
           <h1 id="title">原始<br>折叠<span class="title-dot" aria-hidden="true">.</span></h1>
           <div class="wordmark" lang="en">Original Fold</div>
           <p class="intro">从一个动机开始，折出时代的生活方式。</p>
-          <a class="hero-link" href="#works">浏览作品<svg aria-hidden="true"><use href="#ic-arrow"/></svg></a>
+          <a class="hero-link" href="#works" aria-controls="works">浏览作品<svg aria-hidden="true"><use href="#ic-arrow"/></svg></a>
         </div>
         <div class="paper-air">
           <svg id="sculpture" viewBox="0 0 640 480" role="img" tabindex="0" aria-label="黑色三维折纸。拖动纸面可以移动并转动它。方向键转动，Shift 加方向键移动，Home 或双击复位。">
@@ -49,35 +49,42 @@
             </g>
           </svg>
         </div>
-      </section>
-      <section id="works" class="works block" aria-labelledby="works-title">
-        <div class="works-stage" id="portfolio" data-state="closed">
-          <div class="works-copy">
-            <span class="eyebrow"><i></i><span lang="en">SELECTED WORKS</span></span>
-            <h2 id="works-title">作品折扇<span aria-hidden="true">.</span></h2>
-            <p id="fan-hint">轻点纸扇，翻看扇页里的作品。</p>
-            <button id="fan-action" class="paper-action" type="button" hidden aria-controls="fan-space"><svg aria-hidden="true"><use href="#ic-arrow"/></svg><span>展开作品扇</span></button>
-          </div>
-          <div class="fan-space" id="fan-space">
-            <svg id="work-fan" viewBox="0 0 720 420" aria-hidden="true" focusable="false"></svg>
-            <div class="leaf-choices" id="leaf-choices" hidden>
-              <button type="button" class="leaf-choice" data-work="xiangguo"><small lang="en">01 / MEMORY</small><strong>想过</strong></button>
-              <button type="button" class="leaf-choice" data-work="segment"><small lang="en">02 / TIME</small><strong>段落计时器</strong></button>
+        <section class="works-layer" id="works" aria-labelledby="works-title">
+          <div class="sheet-slot">
+            <div class="sheet-mover">
+              <div class="paper-window"><div class="paper-leaf">
+                <div class="sheet-content">
+                  <header class="sheet-head">
+                    <div><span class="eyebrow"><i></i><span lang="en">SELECTED WORKS</span></span><h2 id="works-title" tabindex="-1">折进日常的作品<span aria-hidden="true">.</span></h2></div>
+                    <a class="sheet-close" href="#top" aria-label="收起作品，回到首页"><span aria-hidden="true">←</span> 收起</a>
+                  </header>
+                  <div class="work-grid">
+                <article class="work">
+                  <a class="work-link" data-project="xiangguo" href="https://qq244358862.github.io/xiangguo-support/" target="_blank" rel="noopener noreferrer" aria-label="查看想过的产品页（新窗口）">
+                    <div class="art art-memory" aria-hidden="true"><span class="art-tag">XIANGGUO</span><span class="art-small">思考手记</span>
+              <div class="mem-art" aria-hidden="true"><div class="mem-echo echo-a"></div><div class="mem-echo echo-b"></div><div class="mem-paper"><div class="tiny-imprint">给未来的自己</div><span>我以前，<br>也想过。</span><i></i><span class="mem-fold"></span></div></div></div>
+                    <div class="work-caption"><div class="work-heading"><h3>想过</h3><span class="external-arrow" aria-hidden="true">↗</span></div>
+                      <span class="work-type">记忆 · 写作</span><p>记下一句想明白的话。下次遇到相似的处境，找回自己当时的原话。</p></div>
+                  </a>
+                </article>
+                <article class="work">
+                  <a class="work-link" data-project="segment" href="https://qq244358862.github.io/segment-timer-support/" target="_blank" rel="noopener noreferrer" aria-label="查看段落计时器的产品页（新窗口）">
+                    <div class="art art-time" aria-hidden="true"><span class="art-tag">SEGMENT TIMER</span><span class="art-small">时间工具</span>
+              <svg class="time-art" viewBox="0 0 450 231" aria-hidden="true">
+                <g fill="none" stroke="#cee3b2" stroke-width=".7" opacity=".45"><path d="M16 185h423M18 122h419M70 204V68m77 136V45m77 160V30m77 174V47m77 157V68" stroke-dasharray="3 5"/></g>
+                <g stroke="#284f44" stroke-width="1.2" stroke-linejoin="round"><path d="m48 167 65-36v36l-65 37z" fill="#629b76"/><path d="m48 167 41 21 66-37-42-20z" fill="#c4e4a9"/><path d="m89 188 66-37v17l-66 37z" fill="#558a69"/><path d="m105 138 66-37 42 21-66 37z" fill="#c4e4a9"/><path d="m147 159 66-37v39l-66 38z" fill="#77a882"/><path d="m147 159-42-21v39l42 22z" fill="#416c58"/><path d="m164 103 66-38 42 22-66 37z" fill="#e0efb9"/><path d="m206 124 66-37v67l-66 38z" fill="#8ab98b"/><path d="m206 124-42-21v68l42 21z" fill="#4a7862"/><path d="m223 69 65-38 42 22-65 37z" fill="#e9f4c5"/><path d="m265 90 65-37v95l-65 37z" fill="#a6cb9b"/><path d="m265 90-42-21v95l42 21z" fill="#588771"/><path d="m283 105 65-38 42 22-65 37z" fill="#d1e6ab"/><path d="m325 126 65-37v54l-65 38z" fill="#8fb791"/><path d="m325 126-42-21v54l42 22z" fill="#5a856d"/></g>
+              </svg></div>
+                    <div class="work-caption"><div class="work-heading"><h3>段落计时器</h3><span class="external-arrow" aria-hidden="true">↗</span></div>
+                      <span class="work-type">时间 · 记录</span><p>把一次工作拆成几段，对照计划与实际用时，看清时间花在了哪里。</p></div>
+                  </a>
+                </article>
+                  </div>
+                </div>
+                <i class="crease-light" aria-hidden="true"></i>
+              </div></div>
             </div>
-            <article class="leaf-detail" id="leaf-detail" aria-labelledby="detail-title" hidden>
-              <span id="detail-index" class="detail-index"></span>
-              <h3 id="detail-title" tabindex="-1"></h3>
-              <p id="detail-body"></p>
-              <div class="sheet-links"><button id="sheet-back" type="button"><span aria-hidden="true">← </span>返回作品扇</button><a id="detail-link" target="_blank" rel="noopener noreferrer">访问产品页<span aria-hidden="true"> ↗</span></a></div>
-            </article>
           </div>
-          <span class="sr-only" id="fan-status" role="status" aria-live="polite"></span>
-        </div>
-        <noscript><div class="plain-works"><p><a href="https://qq244358862.github.io/xiangguo-support/">想过</a> · 记下一句想明白的话，在相似处境中找回自己的原话。</p><p><a href="https://qq244358862.github.io/segment-timer-support/">段落计时器</a> · 分段记录工作，对照计划与实际用时。</p></div><style>.fan-space,#fan-hint{display:none}</style></noscript>
-      </section>
-      <section id="studio" class="about block" aria-labelledby="studio-title">
-        <div class="about-main"><span class="eyebrow light"><i></i> THE STUDIO</span><h2 id="studio-title">原始，是一张纸。<br>折叠，是一种选择。</h2><p>我们是来自成都的独立AI创作者，以成都原始折叠科技有限公司的名义发布作品。一句想留给以后的话，一段需要被看见的时间，都是我们开始创作的动机。</p></div>
-        <div class="crease-print" aria-hidden="true"><svg viewBox="0 0 240 235" fill="none"><g stroke="currentColor"><path d="m29 35 174 12 7 150-181-6z" stroke-width="1.8"/><path d="m29 35 78 76 96-64M107 111l103 86M107 111l-78 80M29 35l181 162m-7-150L29 191" opacity=".6"/><path d="m29 113 81-75 14 155 79-146M29 113l178 8-97-83M29 191l98-77 80 7" stroke-dasharray="3 5"/><circle cx="107" cy="111" r="4" fill="#c5cbff"/></g></svg></div>
+        </section>
       </section>
       <section id="contact" class="contact block" aria-labelledby="contact-title"><div><span class="eyebrow"><i></i> CONTACT</span><h2 id="contact-title">一起，折点什么。</h2><p>产品反馈、合作想法，或是一封简单的来信。</p></div><div class="contact-address"><a href="mailto:hello@tianmengdesign.com">hello@tianmengdesign.com</a><button type="button" id="copy-email" aria-label="复制联系邮箱" title="复制邮箱"><svg aria-hidden="true"><use href="#ic-copy"/></svg></button><span class="copy-status" id="copy-status" role="status" aria-live="polite"></span></div></section>
     </main>
