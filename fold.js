@@ -25,7 +25,7 @@
     const group=node('g'), surface=node('path',{class:'face',fill:'url(#k'+j+')','stroke-linejoin':'round','stroke-width':.65}), rim=node('path',{fill:'none','pointer-events':'none','stroke-width':.85}), grain=node('path',{fill:'none','pointer-events':'none','stroke-width':.5,stroke:'#ddd','stroke-opacity':.067});
     group.append(surface,grain,rim);model.append(group);rows.push({group,grad,stops,surface,grain,rim});
   }
-  let w=1,h=1,limits=null,yaw=0,pitch=0,x=0,y=0,velocity=[0,0],held=null,time=0,auto=!reduced.matches,last=0,raf=0,visible=true,covered=false;
+  let w=1,h=1,limits=null,yaw=0,pitch=0,x=0,y=0,velocity=[0,0],held=null,time=0,auto=!reduced.matches,last=0,raf=0,visible=true;
   const gray=n=>{const k=Math.round(clamp(n,0,255));return 'rgb('+[k,k,k].join(',')+')'};
   const fmt=p=>p[0].toFixed(2)+' '+p[1].toFixed(2);
   const lerp2=(p,q,t)=>[p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t];
@@ -59,7 +59,7 @@
     limits={left:a.left-s.left,right:a.right-s.left,top:a.top-s.top+5,bottom:a.bottom-s.top-5};
     svg.setAttribute('viewBox','0 0 '+Math.max(1,w)+' '+Math.max(1,h));render();
   }
-  function wake(){if(!raf&&visible&&!covered&&!document.hidden)raf=requestAnimationFrame(step)}
+  function wake(){if(!raf&&visible&&!document.hidden)raf=requestAnimationFrame(step)}
   function step(now){raf=0;const dt=Math.min(.045,(now-(last||now))/1000);last=now;
     if(!held){if(auto)time+=dt;if(!reduced.matches){yaw+=velocity[0]*dt;pitch+=velocity[1]*dt;const damping=Math.exp(-dt*8);velocity=velocity.map(v=>v*damping)}}
     render();if(!held&&(auto||Math.abs(velocity[0])+Math.abs(velocity[1])>.006))wake();
@@ -77,14 +77,6 @@
   if(window.ResizeObserver)new ResizeObserver(measure).observe(stage);else window.addEventListener('resize',measure);
   if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(!visible&&raf){cancelAnimationFrame(raf);raf=0}else{last=0;wake()}}).observe(hero);
   document.addEventListener('visibilitychange',()=>{last=0;if(!document.hidden)wake()});
-  document.addEventListener('originalfold:cover',e=>{
-    covered=e.detail===true;last=0;
-    if(covered){
-      if(raf){cancelAnimationFrame(raf);raf=0}
-      if(held){const id=held.id;held=null;svg.removeAttribute('data-held');if(svg.hasPointerCapture(id))svg.releasePointerCapture(id)}
-      velocity=[0,0];
-    }else wake();
-  });
   reduced.addEventListener?.('change',()=>{if(reduced.matches){auto=false;velocity=[0,0]}render();wake()});
   measure();wake();
 })();
