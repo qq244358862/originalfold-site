@@ -8,7 +8,10 @@
   const triggers=[...document.querySelectorAll('a[aria-controls="works"]')],browse=document.querySelector('.browse-label'),title=document.querySelector('#works-title');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),root=document.documentElement,halfTurn=Math.PI/2;
   const route=()=>/^#works(?:\/(?:open|xiangguo|segment))?$/.test(location.hash);
-  const sat=x=>Math.max(0,Math.min(1,x)),smooth=x=>{const t=sat(x);return t*t*(3-2*t)};
+  const openMs=760,closeMs=680,firstFlat=.68,secondStart=.20;
+  // Give the first hinge some movement on the first frame; still settle flat
+  // with zero velocity. Reversing the same curve keeps the creases attached.
+  function easeFold(x){const t=Math.max(0,Math.min(1,x)),u=1-t;return t*t*(3-2*t)+.40*t*u*u}
   const num=x=>Number(x.toFixed(4)),px=x=>num(x)+'px';
   const el=c=>{const n=document.createElement('div');n.className=c;return n};
   let progress=0,target=0,ticket=0,prev=null,pairs=[],opener=null,focusWhenDone=null,usingKeys=false;
@@ -48,7 +51,7 @@
       // The lower spread follows the upper one. Within a spread, both halves
       // have equal length: the valley goes into the page and its foot returns
       // to z=0. Its projected bottom is exactly the next paper hinge.
-      const local=smooth(i===0?progress/.69:(progress-.23)/.77);
+      const local=easeFold(i===0?progress/firstFlat:(progress-secondStart)/(1-secondStart));
       const angle=(1-local)*halfTurn,extent=half*Math.cos(angle),depth=half*Math.sin(angle),degrees=num(angle*180/Math.PI);
       pair.style.top=px(y);pair.style.visibility=extent>.055?'visible':'hidden';
       faces[0].plane.style.transform='rotateX('+(-degrees)+'deg)';
@@ -75,7 +78,7 @@
   }
   function advance(now){
     ticket=0;const elapsed=prev===null?0:Math.max(0,Math.min(70,now-prev));prev=now;
-    progress=reduced.matches?target:target?Math.min(1,progress+elapsed/950):Math.max(0,progress-elapsed/950);
+    progress=reduced.matches?target:target?Math.min(1,progress+elapsed/openMs):Math.max(0,progress-elapsed/closeMs);
     draw();
     if(progress===target){prev=null;finish()}else ticket=requestAnimationFrame(advance);
   }
@@ -87,7 +90,7 @@
     if(instant||reduced.matches){progress=target;finish();return}
     build();print.inert=true;section.setAttribute('aria-hidden','true');
     section.dataset.turning='';root.dataset.foldInMotion='';section.dataset.state=target?'opening':'closing';
-    draw();ticket=requestAnimationFrame(advance);
+    draw();prev=performance.now();ticket=requestAnimationFrame(advance);
   }
   function ensureHingeInView(){
     const y=section.getBoundingClientRect().top,h=document.documentElement.clientHeight;
@@ -118,7 +121,6 @@
   print.querySelectorAll('.sheet-close').forEach(a=>a.addEventListener('click',e=>{if(ordinary(e)){e.preventDefault();close(true)}}));
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&target){e.preventDefault();close(true)}});
   function sync(){
-    if(location.hash==='#studio'){location.replace('./studio.html');return}
     const on=route();if(on!==!!target)move(on,{focus:usingKeys?(on?title:location.hash==='#contact'?null:opener):null});
   }
   window.addEventListener('popstate',sync);window.addEventListener('hashchange',sync);
@@ -126,8 +128,7 @@
   if(window.ResizeObserver){const observer=new ResizeObserver(resize);pages.forEach(p=>observer.observe(p))}else window.addEventListener('resize',resize);
   reduced.addEventListener?.('change',()=>{if(ticket&&reduced.matches){cancelAnimationFrame(ticket);ticket=0;prev=null;progress=target;finish()}});
   root.dataset.portfolio='';section.dataset.state='closed';print.inert=true;section.setAttribute('aria-hidden','true');labels();
-  if(location.hash==='#studio')location.replace('./studio.html');
-  else if(route()){
+  if(route()){
     move(true,{instant:true});
     if(location.hash!=='#works')requestAnimationFrame(()=>section.scrollIntoView({block:'start',behavior:'instant'}));
   }
